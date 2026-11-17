@@ -77,3 +77,16 @@ Repeat for `frontend` or `cli`. The superproject records the exact component
 commit, so update and commit the pointer after each component change. Run
 `node scripts/build-bundle.mjs` to regenerate the release bundle; use
 `--push` to push generated commits.
+
+## Release bundle
+
+`bundle/` is generated output; do not edit it by hand. The build script updates
+the component submodules, builds the Angular app, and assembles the backend,
+CLI, static UI, and Docker/Railway configuration into the `bundle` submodule.
+Run the script twice when validating a change: the second run should report no
+new commits. Add `--push` to publish generated commits on `bundle` and update
+`main`.
+
+GitHub Actions regenerates the bundle hourly or on manual dispatch. The Docker
+workflow runs when the `bundle` submodule pointer changes on `main` and publishes
+`ghcr.io/daniel-lee-yisheng/snip_workshop_day1:latest` and a short-SHA tag.
