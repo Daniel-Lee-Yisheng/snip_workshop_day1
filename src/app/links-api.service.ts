@@ -13,7 +13,10 @@ export interface ShortLink {
 @Injectable({ providedIn: 'root' })
 export class LinksApiService {
   private readonly http = inject(HttpClient);
-  private readonly endpoint = 'http://localhost:3000/api/links';
+  private readonly endpoint =
+    window.location.port === '4200'
+      ? 'http://localhost:3000/api/links'
+      : '/api/links';
 
   listLinks(): Observable<ShortLink[]> {
     return this.http.get<ShortLink[]>(this.endpoint);

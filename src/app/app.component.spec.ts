@@ -7,7 +7,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { ShortLink } from './links-api.service';
 
-const endpoint = 'http://localhost:3000/api/links';
+const endpoint =
+  window.location.port === '4200'
+    ? 'http://localhost:3000/api/links'
+    : '/api/links';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
