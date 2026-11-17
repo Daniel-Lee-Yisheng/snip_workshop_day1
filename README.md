@@ -52,6 +52,16 @@ npm start
 Open `http://localhost:4200`. The frontend calls the API at
 `http://localhost:3000`.
 
+To run the generated single-process app (web UI and API together), use:
+
+```sh
+cd bundle
+bun start
+```
+
+If Bun is not installed globally, run `npx --yes bun run server.js` from
+`bundle/` instead. Open `http://localhost:3000`.
+
 ```sh
 cd cli
 node cli.js ls
@@ -90,3 +100,7 @@ new commits. Add `--push` to publish generated commits on `bundle` and update
 GitHub Actions regenerates the bundle hourly or on manual dispatch. The Docker
 workflow runs when the `bundle` submodule pointer changes on `main` and publishes
 `ghcr.io/daniel-lee-yisheng/snip_workshop_day1:latest` and a short-SHA tag.
+Image publication is gated on frontend tests, dependency audit, and a high/
+critical image scan. The current Angular 19 lockfile has four high-severity
+production dependency advisories with no patched Angular 19 release available;
+the Docker job correctly stops before publishing until that is addressed.
